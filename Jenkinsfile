@@ -19,16 +19,16 @@ pipeline {
                         continueOnError: false,
                         publishers: [
                             sshPublisherDesc(
-                                configName: 'staging'
+                                configName: 'staging',
                                 sshCredentials: [
-                                    username: "$USERNAME"
+                                    username: "$USERNAME",
                                     encryptedPassphrase: "$USERPASS"
                                 ],
                                 transfers: [
                                     sshTransfer(
-                                        sourceFiles: 'dist/trainSchedule.zip'
-                                        removePrefix: 'dist/'
-                                        remoteDirectory: '/tmp'
+                                        sourceFiles: 'dist/trainSchedule.zip',
+                                        removePrefix: 'dist/',
+                                        remoteDirectory: '/tmp',
                                         execCommand: 'sudo /usr/bin/systemctl stop train-schedule && rm- rf /opt/train-schedule/* && unzip /tmp/trainSchedule.zip -d /opt/train-schedule && sudo /usr/bin/systemctl start train-schedule'
                                     )
                                 ]
